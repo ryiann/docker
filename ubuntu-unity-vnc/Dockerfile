@@ -27,7 +27,6 @@ RUN apt-get install -y \
         curl \
         git \
         pwgen \
-        libtasn1-3-bin \
         libglu1-mesa \
     && apt-get autoclean \
     && apt-get autoremove \
