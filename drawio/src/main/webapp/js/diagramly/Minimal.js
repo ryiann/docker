@@ -6,6 +6,8 @@ EditorUi.initMinimalTheme = function()
 	// Disabled in lightbox and chromeless mode
 	if (urlParams['lightbox'] == '1' || urlParams['chrome'] == '0' || typeof window.Format === 'undefined' || typeof window.Menus === 'undefined')
 	{
+		window.uiTheme = null;
+		
 		return;
 	}
 	
@@ -799,7 +801,19 @@ EditorUi.initMinimalTheme = function()
 			}
 			else
 			{
-				ui.menus.addMenuItems(menu, ['save', 'saveAs', '-', 'rename', 'makeCopy'], parent);
+				ui.menus.addMenuItems(menu, ['save', 'saveAs', '-', 'rename'], parent);
+				
+				if (ui.isOfflineApp())
+				{
+					if (navigator.onLine && urlParams['stealth'] != '1')
+					{
+						this.addMenuItems(menu, ['upload'], parent);
+					}
+				}
+				else
+				{
+					ui.menus.addMenuItems(menu, ['makeCopy'], parent);
+				}
 			}
 
 			if (file != null && (file.constructor == DriveFile || file.constructor == DropboxFile))
@@ -816,15 +830,16 @@ EditorUi.initMinimalTheme = function()
         this.put('exportAs', new Menu(mxUtils.bind(this, function(menu, parent)
         {
         	exportAsMenu.funct(menu, parent);
-            menu.addSeparator(parent);
-            ui.menus.addSubmenu('embed', menu, parent);
-            
+
     		if (!mxClient.IS_CHROMEAPP && !EditorUi.isElectronApp)
     		{
 	            // Publish menu contains only one element by default...
 	            //ui.menus.addSubmenu('publish', menu, parent); 
 	            ui.menus.addMenuItems(menu, ['publishLink'], parent);
     		}
+    		
+            menu.addSeparator(parent);
+            ui.menus.addSubmenu('embed', menu, parent);
         })));
 
         var langMenu = this.get('language');

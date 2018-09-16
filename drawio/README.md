@@ -8,7 +8,7 @@
 
 - 无修改，和官方Dockerfile保持一致
 
-#### tomcat-8.0.53-jre8-alpine Tag
+#### alpine Tag
 
 - 较小的体积
 - 修改默认语言（简体中文）
@@ -23,10 +23,10 @@
 docker pull ryaning/drawio
 ```
 
-#### tomcat-8.0.53-jre8-alpine Tag：
+#### alpine Tag：
 
 ```
-docker pull ryaning/drawio:tomcat-8.0.53-jre8-alpine
+docker pull ryaning/drawio:alpine
 ```
 ---
 
@@ -45,17 +45,18 @@ docker pull ryaning/drawio:tomcat-8.0.53-jre8-alpine
 docker run --name drawio -p 8080:8080 -d ryaning/drawio:latest
 ```
 
-#### tomcat-8.0.53-jre8-alpine Tag：
+#### alpine Tag：
 
 ```
 docker run --name drawio \
 -p 8080:8080 \
+-e TZ="Asia/Shanghai" \
 -v /etc/localtime:/etc/localtime:ro \
 -v /home/drawio/logs:/usr/local/tomcat/logs \
--d ryaning/drawio:tomcat-8.0.53-jre8-alpine
+-d ryaning/drawio:alpine
 ```
 
-- 注：**初次使用先重启drawio镜像，目的是为了重新读取 server.xml 文件，使得 tomcat 默认项目为 draw**
+- 注：**初次使用先重启drawio镜像，目的是为了重新读取 server.xml 文件，使得 tomcat 默认项目为 draw **
 
 ```
 docker restart drawio
