@@ -6,10 +6,6 @@
 
 #### latest Tag
 
-- 无修改，和官方Dockerfile保持一致
-
-#### alpine Tag
-
 - 较小的体积
 - 修改默认语言（简体中文）
 - 下载因GFW网络原因导致无法访问到的静态文件
@@ -17,16 +13,10 @@
 
 ### 使用
 
-#### latest Tag：
+#### latest  Tag：
 
 ```
 docker pull ryaning/drawio
-```
-
-#### alpine Tag：
-
-```
-docker pull ryaning/drawio:alpine
 ```
 ---
 
@@ -42,18 +32,12 @@ docker pull ryaning/drawio:alpine
 #### latest Tag：
 
 ```
-docker run --name drawio -p 8080:8080 -d ryaning/drawio:latest
-```
-
-#### alpine Tag：
-
-```
 docker run --name drawio \
 -p 8080:8080 \
 -e TZ="Asia/Shanghai" \
 -v /etc/localtime:/etc/localtime:ro \
 -v /home/drawio/logs:/usr/local/tomcat/logs \
--d ryaning/drawio:alpine
+-d ryaning/drawio
 ```
 
 - 注：**初次使用先重启drawio镜像，目的是为了重新读取 server.xml 文件，使得 tomcat 默认项目为 draw **

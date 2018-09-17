@@ -13,13 +13,13 @@
 tomcat7版本：
 
 ```
-docker pull ryaning/tomcat:7.0.90-jre7-alpine-catalina
+docker pull ryaning/tomcat:7-jre7
 ```
 
 tomcat8版本：
 
 ```
-docker pull ryaning/tomcat:8.0.53-jre8-alpine-catalina
+docker pull ryaning/tomcat:8-jre8
 ```
 
 ### 启动
@@ -33,6 +33,8 @@ docker pull ryaning/tomcat:8.0.53-jre8-alpine-catalina
 ```
 docker run --name tomcat \
 -p 8080:8080 \
+-e TZ="Asia/Shanghai" \
 -v /etc/localtime:/etc/localtime:ro \
--d ryaning/tomcat:8.0.53-jre8-alpine-catalina
+-v /home/tomcat/logs:/usr/local/tomcat/logs \
+-d ryaning/tomcat
 ```

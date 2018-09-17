@@ -1,5 +1,7 @@
 # leanote
 
+[leanote wiki][3]
+
 文件地址：
 
 [leanote-linux-amd64-v2.6.1.bin.tar.gz][1]   
@@ -10,9 +12,9 @@
 ## 1、下载所需镜像
 
 ```
-#下载leanote镜像
+# 下载leanote镜像
 docker pull ryaning/leanote
-#下载mongo镜像
+# 下载mongo镜像
 docker pull mongo:4.0.0
 ```
 
@@ -23,10 +25,12 @@ docker pull mongo:4.0.0
 命令说明：
 
 - –name：自定义别名
+- -v /etc/localtime:/etc/localtime:ro：将系统时区挂载容器内，保证容器时区和宿主机一致
 - -v /home/leanote/mongo/db:/data/db：将主机中 /home/leanote/mongo/db 挂载到容器的 /data/db，作为mongo数据存储目录
 
 ```
 docker run --name leanote-mongo \
+-v /etc/localtime:/etc/localtime:ro \
 -v /home/leanote/mongo/db:/data/db \
 -d mongo:4.0.0
 ```
@@ -62,14 +66,7 @@ CONTAINER ID      IMAGE           COMMAND                  CREATED             S
 docker exec -it leanote-mongo bash
 ```
 
-进入容器后，我们先更改容器的时区，设置为东八区时间
-
-```
-ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-echo "Asia/Shanghai" > /etc/timezone
-```
-
-解压并导入数据库文件
+进入容器后，解压并导入数据库文件
 
 ```
 tar -zxvf /home/leanote_install_data.tar.gz -C /home/
@@ -104,14 +101,16 @@ docker restart leanote-mongo
 ```
 docker run --name leanote \
 -p 9000:9000 \
+-v /etc/localtime:/etc/localtime:ro \
 -v /home/leanote/app.conf:/leanote/conf/app.conf \
 -v /home/leanote/data:/leanote/public/upload \
 --link leanote-mongo:mongohost \
 -d ryaning/leanote
 ```
-- app.conf
 
-博主修改了`db.host=mongohost`和上方`--link leanote-mongo:mongohost`对应，当然为了安全考虑，还可以给mongo数据库添加访问账户密码
+### app.conf
+
+博主修改了`db.host=mongohost`和上方`--link leanote-mongo:mongohost`对应，当然为了安全考虑，还可以给mongo数据库添加访问账户密码（可参考文章：[docker安装mongo及开启用户认证][4]）
 
 ```
 db.host=mongohost
@@ -130,3 +129,5 @@ docker logs leanote
 ---
 [1]:https://jaist.dl.sourceforge.net/project/leanote-bin/${LEANOTE_VERSION}/leanote-linux-amd64-v${LEANOTE_VERSION}.bin.tar.gz
 [2]:https://github.com/YoriChen/docker/blob/master/leanote/app.conf
+[3]:https://github.com/leanote/leanote/wiki
+[4]:http://blog.ryana.cn/#Docker%20%E5%AE%89%E8%A3%85%20Mongo%20%E5%8F%8A%E5%BC%80%E5%90%AF%E7%94%A8%E6%88%B7%E8%AE%A4%E8%AF%81
