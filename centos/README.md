@@ -8,14 +8,14 @@
 ### 使用
 
 ```
-docker pull ryaning/centos
+docker pull ryaning/centos-ssh
 ```
 
 ### 启动
 
 ```
 docker run --name centos-ssh-001 \
--d ryaning/centos:latest
+-d ryaning/centos-ssh:latest
 ```
 或者
 
@@ -23,5 +23,5 @@ docker run --name centos-ssh-001 \
 docker run --privileged -ti \
 --name centos-ssh-001 \
 -p 22:22 \
--d ryaning/centos:latest /usr/sbin/init
+-d ryaning/centos-ssh:latest /usr/sbin/init
 ```
