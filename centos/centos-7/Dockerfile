@@ -4,6 +4,7 @@ FROM centos:latest
 MAINTAINER  Ryan <chen110509@outlook.com>
 # 构建镜像
 RUN yum -y install openssh-server \
+    && yum -y install openssh-clients \
 	&& yum clean all \
 	&& mkdir /var/run/sshd \
 	&& ssh-keygen -t rsa -f /etc/ssh/ssh_host_rsa_key \
