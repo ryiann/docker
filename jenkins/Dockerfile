@@ -1,5 +1,5 @@
 # 基础镜像
-FROM jenkins:lts-alpine
+FROM jenkins/jenkins:lts-alpine
 # 作者
 MAINTAINER  ryan <me@ryana.cn>
 # 安装 Docker CLI
