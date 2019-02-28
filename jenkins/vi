@@ -1,10 +1,10 @@
 # jenkins
 
-## 简介
+### 简介
 
 Jenkins 获取 Tag 源码，编译、打包、构建镜像时，需要用到 Docker 命令，Jenkins 容器本身没有安装 Docker ，如何在 Docker 容器内使用 docker 命令？ 为了让容器内可以构建镜像，应该使用 Docker Remote API 的客户端来直接调用宿主的 Docker Engine，也就是所谓的 Docker In Docker (DIND)。
 
-## 为 Jenkins 添加 Docker 命令行
+### 为 Jenkins 添加 Docker 命令行
 
 本镜像以官方 `jenkins/jenkins:lts-alpine` 镜像为例，使用 Dockerfile 添加 docker 命令行可执行文件，并调整权限。
 
@@ -26,7 +26,7 @@ USER jenkins:${DOCKER_GID}
 
 在上面这个 Dockerfile 例子中，我们下载了静态编译的 docker 可执行文件，并提取命令行安装到系统目录下。然后调整了 jenkins 用户的组 ID，调整为宿主 docker 组 ID，从而使其具有执行 docker 命令的权限。
 
-组 ID 使用了 `DOCKER_GID` 参数来定义，以方便进一步定制，**ARG DOCKER_GID=994 只是个例子，您服务器上的 DOCKER_GID 可能不是 994**，可通过下面两种方式改变（二选一）：
+组 ID 使用了 `DOCKER_GID` 参数来定义，以方便进一步定制，**ARG DOCKER_GID=994 只是个例子，您服务器上的 DOCKER_GID 可能不是 994**，可通过下面两种方式改变（二选一）：。
 
 * 命令 `cat /etc/group|grep docker` 查看 `DOCKER_GID`， 构建镜像时通过 `--build-arg` 来改变 `DOCKER_GID` 的默认值。
 * 运行时通过 `--user jenkins:994` 来改变运行用户的身份（**墙裂推荐**）。
@@ -41,13 +41,13 @@ docker run --name jenkins \
 -d ryaning/jenkins
 ```
 
-## 下载
+### 下载
 
 ```
 docker pull ryaning/jenkins
 ```
 
-## 启动
+### 启动
 
 ```
 # 查看 docker 组的 gid
