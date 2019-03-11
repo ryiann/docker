@@ -38,7 +38,7 @@ ADD default_site /nginx/conf/nginx.conf
 VOLUME ["/nginx/conf", "/nginx/logs"]
 # install php
 RUN mkdir /php && cd /php && \
-    wget http://$php_mirror.php.net/distributions/php-$php_version.tar.gz && \
+    wget https://cdn.ryana.cn/php/php-$php_version.tar.gz && \
     tar zxf php-$php_version.tar.gz && \
     cd php-$php_version && \
     ./configure --prefix=/php --with-config-file-path=/php/etc --with-config-file-scan-dir=/php/etc/conf.d --disable-cgi --enable-mysqlnd --with-curl --with-pcre-regex --with-readline --with-recode --with-zlib --enable-fpm --with-fpm-user=www-data --with-fpm-group=www-data --with-pdo-mysql --with-gd --with-jpeg-dir=/usr --with-png-dir=/usr --enable-mbstring --enable-phar=shared --enable-gd-native-ttf --with-freetype-dir=/usr/include/freetype2 --with-openssl && \
