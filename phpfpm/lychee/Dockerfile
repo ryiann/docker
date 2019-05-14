@@ -3,4 +3,6 @@ FROM php:7.3-fpm-alpine3.9
 # 作者
 MAINTAINER  ryan <me@ryana.cn>
 # 构建镜像
-RUN docker-php-ext-install mysqli pdo_mysql exif -j$(nproc) gd
+RUN docker-php-ext-install mysqli pdo_mysql exif \
+	&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+	&& docker-php-ext-install -j$(nproc) gd
